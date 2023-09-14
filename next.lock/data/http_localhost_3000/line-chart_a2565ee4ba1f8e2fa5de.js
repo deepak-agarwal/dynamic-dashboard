@@ -1,5 +1,5 @@
 import build from 'https://esm.sh/build'
-export async function loadLineChartComponent() {
+;(async function loadLineChartComponent() {
   const ret = await build({
     dependencies: {
       victory: '^36.6.0',
@@ -33,5 +33,10 @@ export async function loadLineChartComponent() {
     `
   })
   const { LineChartComponent } = await import(ret.url)
-  return LineChartComponent
-}
+
+  const lineChart = document.getElementById('line-chart')
+  if (lineChart) {
+    lineChart.innerHTML = ''
+    lineChart.appendChild(LineChartComponent())
+  }
+})()

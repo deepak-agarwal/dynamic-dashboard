@@ -1,0 +1,5 @@
+{
+  "http://localhost:3000/line-chart.js": { "integrity": "sha512-bR15Subq4tF/tNF2klxp7AWNyPI39WhPCQcrpwkdKuj8h9Ue0igVWMdL5U791BCDVCphUObgLVTQb9l0dEN+YA==", "contentType": "application/javascript; charset=UTF-8" },
+  "https://esm.sh/build": { "resolved": "https://esm.sh/v132/build", "integrity": "sha512-d/tbjc3uZs5uzwuwsBlm2wqfcP4GWPwrtyzjqguYdF/Q9C8uGuSNj8OATCA+BVpdfq+i/Hh51Whw3QBH5N0rGQ==", "contentType": "application/javascript; charset=utf-8" },
+  "version": 1
+}
