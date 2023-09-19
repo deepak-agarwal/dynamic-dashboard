@@ -1,25 +1,24 @@
+import { Box } from '@gluestack-ui/themed'
 import React, { forwardRef, Suspense, useEffect, useState } from 'react'
 
-// const loadWidget = (widget) => {
-//   return React.lazy(() => import(`../Widgets/${widget}`))
-// }
-
 export const WidgetRender = forwardRef((props, ref) => {
-  //   const { widget } = props
-  //   const [WidgetComponent] = useState(loadWidget(widget))
-
-  let component = null
+  const [WidgetComponent, setWidgetComponent] = useState(null)
 
   useEffect(() => {
     const script = document.createElement('script')
-    script.src = 'line-chart.js'
+    script.src = props.widget.id
     script.async = true
     script.type = 'module'
 
     script.onload = () => {
-      console.log('window', window, window.loadLineChartComponent)
-      if (window.loadLineChartComponent) {
-        component = window.loadLineChartComponent()
+      if (window[props.widget.widgetFunction]) {
+        window[props.widget.widgetFunction]()
+          .then((x) => {
+            setWidgetComponent(x())
+          })
+          .catch((e) => {
+            console.log('e', e)
+          })
       }
     }
 
@@ -29,13 +28,15 @@ export const WidgetRender = forwardRef((props, ref) => {
     }
   }, [])
 
+  const { type, props: customprops } = WidgetComponent || {}
   return (
     <div ref={ref} {...props}>
       <Suspense fallback={<>Loading</>}>
-        {/* <WidgetComponent />
-        {props.children}
-        <div id='line-chart'></div> */}
-        {component}
+        {WidgetComponent ? (
+          <Box h='100' w='100' bgColor='$primary500'>
+            {React.createElement(type, customprops)}
+          </Box>
+        ) : null}
       </Suspense>
     </div>
   )

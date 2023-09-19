@@ -21,7 +21,6 @@ export const Canvas = () => {
 
   const onDrop = useCallback(
     (_: Layout[], item: Layout, e: DragEvent) => {
-      console.log('onDrop', e, e.dataTransfer?.getData('droppableWidget'))
       const raw = e.dataTransfer?.getData('droppableWidget')
       if (!raw) {
         return

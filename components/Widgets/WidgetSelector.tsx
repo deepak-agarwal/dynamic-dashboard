@@ -4,27 +4,17 @@ const availableWidgets = [
   {
     previewImg: 'https://via.placeholder.com/80x80',
     previewName: 'Widget 1',
-    id: 'ImageWidget1',
+    id: 'widget1.js',
     layout: { i: 'ImageWidget', x: 0, y: 0, w: 3, h: 1 },
-    resizeHandles: ['e', 'se', 's', 'sw', 'w']
+    resizeHandles: ['e', 'se', 's', 'sw', 'w'],
+    widgetFunction: 'widget1'
   },
   {
     previewImg: 'https://via.placeholder.com/80x80',
     previewName: 'Widget 2',
-    id: 'ImageWidget2',
-    layout: { i: 'ImageWidget', x: 0, y: 0, w: 3, h: 1 }
-  },
-  {
-    previewImg: 'https://via.placeholder.com/80x80',
-    previewName: 'Widget 3',
-    id: 'ImageWidget3',
-    layout: { i: 'ImageWidget', x: 0, y: 0, w: 3, h: 1 }
-  },
-  {
-    previewImg: 'https://via.placeholder.com/80x80',
-    previewName: 'Widget 4',
-    id: 'ImageWidget4',
-    layout: { i: 'ImageWidget', x: 0, y: 0, w: 6, h: 1 }
+    id: 'widget2.js',
+    layout: { i: 'ImageWidget', x: 0, y: 0, w: 3, h: 1 },
+    widgetFunction: 'widget2'
   }
 ]
 
