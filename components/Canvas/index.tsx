@@ -3,9 +3,7 @@ import GridLayout, { Layout } from 'react-grid-layout'
 import { WidgetRender } from './WidgetRender'
 import { Box } from '@gluestack-ui/themed'
 
-export const Canvas = () => {
-  const [widgets, setWidgets] = useState([])
-
+export const Canvas = ({ widgets, setWidgets }) => {
   const onLayoutChange = useCallback(
     (_: any, oldItem: { i: any }, newItem: any) => {
       const newWidgetArr = [...widgets]

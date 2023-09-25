@@ -10,7 +10,9 @@ export async function loadLineChartComponent() {
     import { h } from "preact";
     import { renderToString } from "preact-render-to-string";
     export function render(): string {
-      return <h1>Widget 2</h1>
+      return renderToString(<div>Widget 2
+      <h1>helo</h1>
+      </div>)
     }
   `,
     // for types checking and LSP completion
