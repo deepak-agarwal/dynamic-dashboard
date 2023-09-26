@@ -16,7 +16,7 @@ const Home: NextPage = () => {
   const [widgets, setWidgets] = useState([])
 
   const toggleSidebar = () => {
-    setSidebarOpen(true)
+    setSidebarOpen(!sidebarOpen)
   }
 
   const showDropCanvasFn = () => {
@@ -25,8 +25,10 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Header />
-      <Text> Dashboard</Text>
+      <Header toggleSidebar={toggleSidebar} />
+      <Text m='$2' color='white'>
+        Dashboard
+      </Text>
       <Box display='flex' flexDirection='row'>
         {sidebarOpen && (
           <>
@@ -38,7 +40,7 @@ const Home: NextPage = () => {
               p='$5'
               m='$2'
               w={'100%'}
-              h={'100vh'}
+              h={'88vh'}
               rounded={'$md'}
               flex={'auto'}
               flexGrow={1}
@@ -60,6 +62,7 @@ const Home: NextPage = () => {
             rounded={'$md'}
             flex={'auto'}
             flexGrow={1}
+            h={'88vh'}
           >
             <NewDashboard toggleSidebar={toggleSidebar} />
           </Box>

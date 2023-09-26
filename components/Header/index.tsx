@@ -14,10 +14,12 @@ import {
   InputIcon,
   Avatar,
   BellIcon,
-  MenuIcon
+  MenuIcon,
+  Button,
+  ButtonIcon
 } from '@gluestack-ui/themed'
 
-const Header = () => {
+const Header = ({ toggleSidebar }) => {
   return (
     <Box
       bg='$backgroundDark100'
@@ -29,10 +31,22 @@ const Header = () => {
       borderRadius={'$md'}
     >
       <HStack space='md'>
-        <Icon name='Menu' as={MenuIcon} />
-        <Text bold size='md' color='purple'>
-          Dynamix
-        </Text>
+        {/* <Button size='md'> */}
+        <Box
+          justifyContent='center'
+          alignContent='center'
+          bgColor='#F1EEFF'
+          p='0 8px 0 8px'
+          borderRadius='5px'
+        >
+          <ButtonIcon size={'md'} as={MenuIcon} onClick={toggleSidebar} />
+        </Box>
+        {/* </Button> */}
+        <Box justifyContent='center' alignContent='center'>
+          <Text bold size='md' color='purple'>
+            Dynamix
+          </Text>
+        </Box>
       </HStack>
       <Box>
         <Input
@@ -43,12 +57,12 @@ const Header = () => {
           isReadOnly={false}
         >
           <InputField placeholder='Search' />
-          <InputIcon as={SearchIcon} />
+          <InputIcon as={SearchIcon} m={'$2'} />
         </Input>
       </Box>
       <HStack space='md'>
-        <Box>
-          <Icon as={BellIcon} name='Bell Icon' size='md' />
+        <Box bgColor='#F1EEFF' p='0 8px 0 8px' borderRadius='$md'>
+          <Icon as={BellIcon} name='Bell Icon' size='md' m={'$4'} />
         </Box>
         <Box>
           <Icon as={Avatar} name='Avatar' size='md' />

@@ -1,7 +1,6 @@
 import { Box } from '@gluestack-ui/themed'
 import React, { forwardRef, Suspense, useEffect, useState } from 'react'
 
-let abc = null
 export const WidgetRender = forwardRef((props, ref) => {
   const [WidgetComponent, setWidgetComponent] = useState(null)
   useEffect(() => {
@@ -35,10 +34,7 @@ export const WidgetRender = forwardRef((props, ref) => {
       <Suspense fallback={<>Loading</>}>
         {WidgetComponent ? (
           <Box h='100' w='100' bgColor='$primary500'>
-            {/* {React.createElement(type, customprops)}
-             */}
-            {console.log('x', abc())}
-            {abc()}
+            {React.createElement(type, customprops)}
           </Box>
         ) : null}
       </Suspense>
