@@ -26,7 +26,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Header toggleSidebar={toggleSidebar} />
-      <Text m='$2' color='white'>
+      <Text m='$2' color='black'>
         Dashboard
       </Text>
       <Box display='flex' flexDirection='row'>

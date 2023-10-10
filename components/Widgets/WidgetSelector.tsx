@@ -20,8 +20,15 @@ const availableWidgets = [
     ),
     previewName: 'Line Graph',
     id: 'widget1.js',
-    layout: { i: 'ImageWidget', x: 0, y: 0, w: 3, h: 1 },
-    resizeHandles: ['e', 'se', 's', 'sw', 'w'],
+    layout: {
+      i: 'ImageWidget',
+      x: 0,
+      y: 0,
+      w: 3,
+      h: 1,
+      isResizable: true,
+      resizeHandles: ['e', 'se', 's', 'sw', 'w']
+    },
     widgetFunction: 'widget1'
   },
   {

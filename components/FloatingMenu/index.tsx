@@ -97,8 +97,8 @@ const Widget = ({ widget }) => {
 export const FloatingMenu = ({ showDropCanvasFn }) => {
   console.log('widgetList', widgetList, showDropCanvasFn)
   return (
-    <Box h={'100%'}>
-      <Box m='$2' bg='#737373'>
+    <Box h={'100%'} borderRadius='5px'>
+      <Box m='$2' bg='#737373' borderRadius={'$md'}>
         <Input
           variant='outline'
           size='md'

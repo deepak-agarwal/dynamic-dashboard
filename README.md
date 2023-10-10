@@ -1,40 +1,122 @@
-This is a [Next.js](https://nextjs.org/) + [Gluestack-ui](https://ui.gluestack.io/) project template bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### Building Dynamic Dashboard with gluestack-ui and esm.sh
 
-## Getting Started
+#### What is glue stack -ui ?
 
-First, run the development server:
+gluestack-ui is a universal UI library that provides optionally styled and accessible components. It is designed to be easy to use and integrate into existing projects, and it provides a consistent design language across different platforms. gluestack-ui is not a direct replacement for React Native Web, but it builds upon its components to provide additional features and performance improvements.
+
+#### What is esm.sh ?
+
+esm.sh is a fast, smart, and global CDN for modern (ES2015+) web development. It supports bare import specifiers, trailing slashes in import URLs, and a special format for import URLs that allows the use of query parameters with trailing slashes. It also provides a CLI script for managing imports with import maps in Deno and Node/Bun.
+
+> The application will have a widget list from where you can drag and
+> drop widgets in the canvas and it will use esm.sh to build on the
+> browser and render the widget.
+
+_This tutorial will cover_
+
+1. Setting up the project
+2. Creating the UI
+3. Adding esm.sh
+4. Dynamic import of modules
+5. Rendering the module
+
+##### Setting up the project
+
+to create a new project run the folllowing command
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+   npm create gluestack
+
+◇  What would you like to build?
+│  Web app
+◇  What is the  name  of your application?
+│  dynamic-dashboard
+◇  Would you like to use App Router?
+│  Yes
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The app with gluestack-ui is created.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+##### Creating the UI
 
-This project uses [`@gluestack-ui`](https://ui.gluestack.io/docs/overview/introduction) library that provides optionally styled and accessible components. These components are designed for easy integration into applications developed with React and React Native.
+We create a basic Ui with the widget list consisting of the list of widget and a drop area where the widgets are dropped.
+Create a widget render component that will render the widget once its dropped.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+##### ESM code.
 
-## Learn More
+Create a widget.js file on the public folder and include the below code
 
-To learn more about Next.js + Gluestack UI template, take a look at the following resources:
+```
+import build from 'https://esm.sh/build'
+export async function loadLineChartComponent() {
+  const ret = await build({
+    dependencies: {
+      preact: '^10.13.2',
+      'preact-render-to-string': '^6.0.2'
+    },
+    code: `
+    /* @jsx h */
+    import { h } from "preact";
+    export function render(): string {
+      return <h1>Widget 1</h1>
+    }
+  `,
+    types: `
+    export function render(): string;
+  `
+  })
+  const { render } = await import(ret.url)
+  return render
+}
+// to make it accessible through our project we add it to the window object.
+window.widget1 = loadLineChartComponent
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Gluestack UI Documenatation](https://ui.gluestack.io/docs/overview/introduction) - learn about core concepts and architecture of gluestack-ui.
-- [Gluestack Style Documentaion](https://style.gluestack.io/docs/overview/introduction) - learn about the universal styling library that is used in Gluestack-ui
 
-You can check out:
-- [the gluestack-ui GitHub repository](https://github.com/gluestack/gluestack-ui)
-- [the gluestack-style GitHub repository](https://github.com/gluestack/gluestack-style)
-Your feedback and contributions are welcome!
+```
 
-## Deploy on Vercel
+#### Dynamic import when the widget is dragged and dropped.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+the following code is used to render the widget once it is dropped.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+export const WidgetRender = forwardRef((props: WidgetRenderProps, ref) => {
+  const [WidgetComponent, setWidgetComponent] = useState(null)
+  useEffect(() => {
+    const script = document.createElement('script')
+    script.src = props.widget.id
+    script.async = true
+    script.type = 'module'
+
+    script.onload = () => {
+      if (window[props.widget.widgetFunction]) {
+        window[props.widget.widgetFunction]()
+          .then((x) => {
+            setWidgetComponent(x())
+          })
+          .catch((e) => {
+            console.log('e', e)
+          })
+      }
+    }
+
+    document.body.appendChild(script)
+    return () => {
+      document.body.removeChild(script)
+    }
+  }, [])
+
+  const { type, props: customprops } = WidgetComponent || {}
+
+  return (
+    <div ref={ref} {...props}>
+      <Suspense fallback={<>Loading</>}>
+        {WidgetComponent ? (
+          <Box h='100%' w='100%' bgColor='$primary500'>
+            {React.createElement(type, customprops)}
+          </Box>
+        ) : null}
+      </Suspense>
+    </div>
+  )
+})
+```
