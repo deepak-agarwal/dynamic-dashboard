@@ -47,7 +47,7 @@ const availableWidgets = [
         />
       </svg>
     ),
-    previewName: 'Input Field',
+    previewName: 'Bar Graph',
     id: 'widget2.js',
     layout: { i: 'ImageWidget', x: 0, y: 0, w: 3, h: 1 },
     widgetFunction: 'widget2'
@@ -68,10 +68,31 @@ const availableWidgets = [
         />
       </svg>
     ),
-    previewName: 'Bar Graph',
-    id: 'widget2.js',
+    previewName: 'Candle Chart',
+    id: 'widget3.js',
     layout: { i: 'ImageWidget', x: 0, y: 0, w: 3, h: 1 },
-    widgetFunction: 'widget2'
+    widgetFunction: 'widget3'
+  },
+  {
+    previewImg: (
+      <svg
+        width='44'
+        height='44'
+        viewBox='0 0 44 44'
+        fill='none'
+        xmlns='http://www.w3.org/2000/svg'
+      >
+        <rect width='44' height='44' rx='4' fill='#8C8C8C' />
+        <path
+          d='M19 15.23C19 13.9873 20.0074 12.98 21.25 12.98H22.75C23.9926 12.98 25 13.9873 25 15.23V31C23.0251 31 21.0084 31 19 31V15.23ZM17.5 20H15.25C14.0074 20 13 21.0073 13 22.25V30.25C13 30.6642 13.3358 31 13.75 31H17.5V20ZM26.5 31H30.25C30.6642 31 31 30.6642 31 30.25V19.25C31 18.0073 29.9926 17 28.75 17H26.5V31Z'
+          fill='white'
+        />
+      </svg>
+    ),
+    previewName: 'Pie Chart',
+    id: 'widget4.js',
+    layout: { i: 'ImageWidget', x: 0, y: 0, w: 3, h: 1 },
+    widgetFunction: 'widget4'
   }
 ]
 

@@ -7,7 +7,7 @@ export async function loadLineChartComponent() {
     },
     code: `
      import React from "react";
-     import {VictoryBar} from "victory";
+     import {VictoryPie} from "victory";
     export function render(): string {
       const containerStyle = {
       display: "flex",
@@ -18,26 +18,24 @@ export async function loadLineChartComponent() {
       backgroundColor: "gray"
     };
 
-      return <div style={containerStyle}>
 
-          <VictoryBar
-            cornerRadius={4}
-            animate={{ duration: 1500 }}
 
-            scale={{ y: "log", x: "linear" }}
-            horizontal
+      return          <VictoryPie
+            style={{ parent: containerStyle, labels: { fill: "magenta" } }}
+            radius={100}
+            labelPosition="startAngle"
+            labelPlacement="parallel"
             data={[
-              { x: 1, y: 0.1 },
-              { x: 2, y: 1 },
-              { x: 3, y: 10 },
-              { x: 4, y: 0 },
-              { x: 5, y: 0.1 },
-              { x: 6, y: 1 },
-              { x: 7, y: 10 },
-              { x: 8, y: 100 },
+              { x: 1, y: 1, l: 0 },
+              { x: 2, y: 1, l: 45 },
+              { x: 3, y: 1, l: 90 },
+              { x: 4, y: 1, l: 135 },
+              { x: 5, y: 1, l: 180 },
+              { x: 6, y: 1, l: 225 },
+              { x: 7, y: 1, l: 270 },
+              { x: 8, y: 1, l: 315 },
             ]}
           />
-        </div>
     }
   `,
     // for types checking and LSP completion
@@ -49,4 +47,4 @@ export async function loadLineChartComponent() {
   return render
 }
 
-window.widget2 = loadLineChartComponent
+window.widget4 = loadLineChartComponent

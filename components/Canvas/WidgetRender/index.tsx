@@ -1,7 +1,14 @@
 import { Box } from '@gluestack-ui/themed'
 import React, { forwardRef, Suspense, useEffect, useState } from 'react'
 
-export const WidgetRender = forwardRef((props, ref) => {
+interface WidgetRenderProps {
+  widget: {
+    id: string
+    widgetFunction: string
+  }
+}
+
+export const WidgetRender = forwardRef((props: WidgetRenderProps, ref) => {
   const [WidgetComponent, setWidgetComponent] = useState(null)
   useEffect(() => {
     const script = document.createElement('script')
@@ -13,8 +20,8 @@ export const WidgetRender = forwardRef((props, ref) => {
       if (window[props.widget.widgetFunction]) {
         window[props.widget.widgetFunction]()
           .then((x) => {
+            console.log('x', x())
             setWidgetComponent(x())
-            abc = x
           })
           .catch((e) => {
             console.log('e', e)
@@ -29,14 +36,11 @@ export const WidgetRender = forwardRef((props, ref) => {
   }, [])
 
   const { type, props: customprops } = WidgetComponent || {}
+
   return (
     <div ref={ref} {...props}>
       <Suspense fallback={<>Loading</>}>
-        {WidgetComponent ? (
-          <Box h='100' w='100' bgColor='$primary500'>
-            {React.createElement(type, customprops)}
-          </Box>
-        ) : null}
+        {WidgetComponent ? React.createElement(type, customprops) : null}
       </Suspense>
     </div>
   )

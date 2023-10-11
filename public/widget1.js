@@ -2,24 +2,33 @@ import build from 'https://esm.sh/build'
 export async function loadLineChartComponent() {
   const ret = await build({
     dependencies: {
-      preact: '^10.13.2',
-      'preact-render-to-string': '^6.0.2'
+      react: '^18.0.1',
+      victory: '^36.0.0'
     },
     code: `
-    /* @jsx h */
-    import { h } from "preact";
-    import { renderToString } from "preact-render-to-string";
-    export function render(): string {
-      return <h1>Widget 1</h1>
-    }
+    import React from "react";
+    import { VictoryLine, VictoryContainer } from "victory";
+    export function chart(){
+        return <div style={{backgroundColor: 'azure'}}>
+
+          <VictoryLine
+            animate={{ duration: 1500 }}
+            containerComponent={
+              <VictoryContainer
+                title="Line Chart"
+                desc="This is a line chart for displaying data."
+              />
+            }
+          />
+        </div>
+      };
   `,
-    // for types checking and LSP completion
     types: `
-    export function render(): string;
+    export function chart();
   `
   })
-  const { render } = await import(ret.url)
-  return render
+  const { chart } = await import(ret.url)
+  return chart
 }
 
 window.widget1 = loadLineChartComponent
