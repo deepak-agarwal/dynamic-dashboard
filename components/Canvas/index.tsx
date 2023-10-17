@@ -54,6 +54,7 @@ export const Canvas = ({ widgets, setWidgets }) => {
         onDrop={onDrop}
         onDragStop={onLayoutChange}
         onResizeStop={onLayoutChange}
+        resizeHandles={['sw', 'se', 'nw', 'ne', 'w', 'e', 'n', 's']}
       >
         {widgets.map((widget, index) => (
           <WidgetRender

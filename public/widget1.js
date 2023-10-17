@@ -1,4 +1,7 @@
 import build from 'https://esm.sh/build'
+import React from 'https://esm.sh/react@18.2.0'
+import ReactDOM from 'https://esm.sh/react-dom@18.2.0'
+
 export async function loadLineChartComponent() {
   const ret = await build({
     dependencies: {
@@ -8,7 +11,7 @@ export async function loadLineChartComponent() {
     code: `
     import React from "react";
     import { VictoryLine, VictoryContainer } from "victory";
-    export function chart(){
+    export function App(){
         return <div style={{backgroundColor: 'azure'}}>
 
           <VictoryLine
@@ -24,11 +27,15 @@ export async function loadLineChartComponent() {
       };
   `,
     types: `
-    export function chart();
+    export function App();
   `
   })
-  const { chart } = await import(ret.url)
-  return chart
+  const { App } = await import(ret.url)
+  return {
+    ReactDOM,
+    React,
+    App
+  }
 }
 
 window.widget1 = loadLineChartComponent

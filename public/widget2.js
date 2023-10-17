@@ -1,4 +1,7 @@
 import build from 'https://esm.sh/build'
+import React from 'https://esm.sh/react@18.2.0'
+import ReactDOM from 'https://esm.sh/react-dom@18.2.0'
+
 export async function loadLineChartComponent() {
   const ret = await build({
     dependencies: {
@@ -8,7 +11,7 @@ export async function loadLineChartComponent() {
     code: `
      import React from "react";
      import {VictoryBar} from "victory";
-    export function render(): string {
+    export function App(): string {
       const containerStyle = {
       display: "flex",
       flexDirection: "row",
@@ -42,11 +45,15 @@ export async function loadLineChartComponent() {
   `,
     // for types checking and LSP completion
     types: `
-    export function render(): string;
+    export function App(): string;
   `
   })
-  const { render } = await import(ret.url)
-  return render
+  const { App } = await import(ret.url)
+  return {
+    ReactDOM,
+    React,
+    App
+  }
 }
 
 window.widget2 = loadLineChartComponent
