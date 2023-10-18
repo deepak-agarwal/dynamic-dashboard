@@ -1,5 +1,8 @@
 ### Building Dynamic Dashboard with gluestack-ui and esm.sh
 
+![dynamic dashboard](https://github.com/deepak-agarwal/dynamic-dashboard/assets/29549865/7e4ac61b-0f66-411f-bf39-36228a59df21)
+
+
 #### What is glue stack -ui ?
 
 gluestack-ui is a universal UI library that provides optionally styled and accessible components. It is designed to be easy to use and integrate into existing projects, and it provides a consistent design language across different platforms. gluestack-ui is not a direct replacement for React Native Web, but it builds upon its components to provide additional features and performance improvements.
