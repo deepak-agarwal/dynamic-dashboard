@@ -30,6 +30,8 @@ export const Canvas = ({ widgets, setWidgets }) => {
 
       droppableWidget.layout.x = item.x
       droppableWidget.layout.y = item.y
+      droppableWidget.layout.w = item.w
+      droppableWidget.layout.h = item.h
       droppableWidget.layout.isDraggable = true
       newWidgetArr.push(droppableWidget)
 
@@ -43,25 +45,29 @@ export const Canvas = ({ widgets, setWidgets }) => {
   return (
     <Box borderBlockColor={'black'} h='100%' w='100%'>
       <GridLayout
-        autoSize
-        preventCollision
+        // preventCollision
         useCSSTransforms
         isDroppable
         isResizable
         compactType={null}
         width={1000}
-        height={1000}
         onDrop={onDrop}
+        cols={6}
         onDragStop={onLayoutChange}
         onResizeStop={onLayoutChange}
-        resizeHandles={['sw', 'se', 'nw', 'ne', 'w', 'e', 'n', 's']}
+        resizeHandles={['se']}
+        rowHeight={120}
       >
         {widgets.map((widget, index) => (
-          <WidgetRender
-            key={widget.id + index}
-            widget={widget}
-            data-grid={widget.layout}
-          />
+          <div
+            style={{
+              border: '1px solid black'
+              // overflow: 'auto'
+            }}
+            key={index}
+          >
+            <WidgetRender widget={widget} data-grid={widget.layout} />
+          </div>
         ))}
       </GridLayout>
     </Box>

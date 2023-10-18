@@ -18,8 +18,9 @@ export async function loadLineChartComponent() {
       flexWrap: "wrap",
       alignItems: "center",
       justifyContent: "center",
-      backgroundColor: "gray"
-    };
+      backgroundColor: "gray",
+      height:'100%'
+      };
 
       return <div style={containerStyle}>
 

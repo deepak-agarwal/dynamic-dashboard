@@ -12,7 +12,7 @@ export async function loadLineChartComponent() {
     import React from "react";
     import { VictoryLine, VictoryContainer } from "victory";
     export function App(){
-        return <div style={{backgroundColor: 'azure'}}>
+        return <div style={{backgroundColor: 'azure', height:'100%', width:'100%'}}>
 
           <VictoryLine
             animate={{ duration: 1500 }}

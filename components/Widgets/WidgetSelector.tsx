@@ -116,9 +116,9 @@ const availableWidgets = [
       i: 'ImageWidget',
       x: 0,
       y: 0,
-      w: 3,
-      h: 1,
-      resizeHandles: ['se'],
+      w: 5,
+      h: 5,
+      resizeHandles: ['sw', 'se', 'nw', 'ne', 'w', 'e', 'n', 's'],
       isResizable: true
     },
     widgetFunction: 'widget5'

@@ -1,6 +1,5 @@
-import { Box } from '@gluestack-ui/themed'
+import { Text } from '@gluestack-ui/themed'
 import React, { forwardRef, Suspense, useEffect, useState } from 'react'
-import { Resizable } from 'react-resizable'
 interface WidgetRenderProps {
   widget: {
     id: string
@@ -10,13 +9,6 @@ interface WidgetRenderProps {
 
 export const WidgetRender = forwardRef((props: WidgetRenderProps, ref) => {
   const [WidgetComponent, setWidgetComponent] = useState(null)
-  const [width, setWidth] = useState(100)
-  const [height, setHeight] = useState(100)
-
-  const onFirstBoxResize = (event: any, { element, size, handle }: any) => {
-    setWidth(size.width)
-    setHeight(size.height)
-  }
 
   useEffect(() => {
     const script = document.createElement('script')
@@ -28,7 +20,6 @@ export const WidgetRender = forwardRef((props: WidgetRenderProps, ref) => {
       if (window[props.widget.widgetFunction]) {
         window[props.widget.widgetFunction]()
           .then((x: React.SetStateAction<null>) => {
-            console.log('x', x)
             setWidgetComponent(x)
           })
           .catch((e: any) => {
@@ -44,23 +35,14 @@ export const WidgetRender = forwardRef((props: WidgetRenderProps, ref) => {
   }, [])
 
   return (
-    <div ref={ref} {...props} id={props.widget.id}>
+    <div ref={ref} {...props} id={props.widget.id} style={{ height: '100%' }}>
       <Suspense fallback={<>Loading</>}>
-        {WidgetComponent ? (
-          <Resizable
-            height={height}
-            width={width}
-            onResize={onFirstBoxResize}
-            resizeHandles={['sw', 'se', 'nw', 'ne', 'w', 'e', 'n', 's']}
-          >
-            <div style={{ width: width + 'px', height: height + 'px' }}>
-              {WidgetComponent.ReactDOM.render(
-                WidgetComponent.React.createElement(WidgetComponent.App),
-                document.getElementById(`${props.widget.id}`)
-              )}
-            </div>
-          </Resizable>
-        ) : null}
+        {WidgetComponent
+          ? WidgetComponent.ReactDOM.render(
+              WidgetComponent.React.createElement(WidgetComponent.App),
+              document.getElementById(`${props.widget.id}`)
+            )
+          : null}
       </Suspense>
     </div>
   )
